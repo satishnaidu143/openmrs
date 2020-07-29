@@ -20,7 +20,7 @@ pipeline{
         }
         stage('archive artifacts'){
             steps{
-                archiveArtifacts 'webapp/target/webapp.war'
+                archiveArtifacts 'webapp/target/openmrs.war'
             }
         }
 // 		stage('SonarQube analysis') {
