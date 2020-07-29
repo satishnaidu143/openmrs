@@ -10,7 +10,7 @@ pipeline{
         stages{
         stage('git clone'){
             steps{
-                git 'https://github.com/satishnaidu143/rideeasy.git'
+                git 'https://github.com/satishnaidu143/openmrs.git'
             }
         }
         stage('package'){
@@ -23,18 +23,18 @@ pipeline{
                 archiveArtifacts 'webapp/target/webapp.war'
             }
         }
-		stage('SonarQube analysis') {
-			steps{
-    // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
-    withSonarQubeEnv('sonar') {
-      // requires SonarQube Scanner for Maven 3.2+
-      sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
-     sh 'mvn sonar:sonar \
-  -Dsonar.host.url=http://15.206.100.91:9000 \
-  -Dsonar.login=91483717da951a00f33d3054ab535b08dff99ff7'
-	    }
-     }	
-  }
+// 		stage('SonarQube analysis') {
+// 			steps{
+//     // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
+//     withSonarQubeEnv('sonar') {
+//       // requires SonarQube Scanner for Maven 3.2+
+//       sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+//      sh 'mvn sonar:sonar \
+//   -Dsonar.host.url=http://15.206.100.91:9000 \
+//   -Dsonar.login=91483717da951a00f33d3054ab535b08dff99ff7'
+// 	    }
+//      }	
+//   }
         stage('junit reports'){
             steps{
                 junit 'server/target/surefire-reports/*.xml'
@@ -44,7 +44,7 @@ pipeline{
             steps {
              sh label: '', script: '''pwd
 			 whoami
-			 sudo scp /var/lib/jenkins/workspace/$JOB_NAME/webapp/target/webapp.war /var/lib/jenkins/workspace/$JOB_NAME
+			 sudo scp /var/lib/jenkins/workspace/$JOB_NAME/webapp/target/openmrs.war /var/lib/jenkins/workspace/$JOB_NAME
 			  docker image build -t $IMAGE_ID .
               docker tag $IMAGE_ID $IMAGE
 			  docker push $IMAGE
@@ -53,7 +53,7 @@ pipeline{
 	}
 	stage('updating latest image'){
             steps{
-                sh("sed -i.bak 's#snaidu/rideeasy:1#${IMAGE}#' ./deployment.yml")
+                sh("sed -i.bak 's#snaidu/openmrs:1#${IMAGE}#' ./deployment.yml")
             }
         }
 	  stage('k8s Deployment') {

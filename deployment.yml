@@ -2,23 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rideeasy
-  namespace: rideeasy-dev
+  name: openmrs
+  namespace: openmrs-dev
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: rideeasy
+      app: openmrs
   template:
     metadata:
       labels:
         env1: dev
-        app: rideeasy
+        app: openmrs
     spec:
       terminationGracePeriodSeconds: 30
       containers:
-      - name: rideeasy
-        image: snaidu/rideeasy:1
+      - name: openmrs
+        image: snaidu/openmrs:1
         imagePullPolicy: "Always"
         ports:
           - containerPort: 8080

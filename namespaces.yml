@@ -2,15 +2,15 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: rideeasy-dev
+  name: openmrs-dev
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: rideeasy-qa
+  name: openmrs-qa
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: rideeasy-prod
+  name: openmrs-prod
 ---
