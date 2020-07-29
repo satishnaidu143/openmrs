@@ -37,7 +37,7 @@ pipeline{
 //   }
         stage('junit reports'){
             steps{
-                junit 'server/target/surefire-reports/*.xml'
+                junit 'webapp/target/surefire-reports/*.xml'
             }
         }
 		stage('Pushing image to DockerHub') {
