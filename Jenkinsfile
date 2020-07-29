@@ -20,7 +20,7 @@ pipeline{
         }
         stage('archive artifacts'){
             steps{
-                archiveArtifacts 'webapp/target/openmrs.war'
+                archiveArtifacts '**/*.war'
             }
         }
 // 		stage('SonarQube analysis') {
@@ -37,7 +37,7 @@ pipeline{
 //   }
         stage('junit reports'){
             steps{
-                junit 'webapp/target/surefire-reports/*.xml'
+                junit '**/*.xml'
             }
         }
 		stage('Pushing image to DockerHub') {
