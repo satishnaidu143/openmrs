@@ -23,18 +23,18 @@ pipeline{
                 archiveArtifacts '**/*.war'
             }
         }
-// 		stage('SonarQube analysis') {
-// 			steps{
-//     // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
-//     withSonarQubeEnv('sonar') {
-//       // requires SonarQube Scanner for Maven 3.2+
-//       sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
-//      sh 'mvn sonar:sonar \
-//   -Dsonar.host.url=http://15.206.100.91:9000 \
-//   -Dsonar.login=91483717da951a00f33d3054ab535b08dff99ff7'
-// 	    }
-//      }	
-//   }
+ 		stage('SonarQube analysis') {
+ 			steps{
+    // performing sonarqube analysis with "withSonarQubeENV(<Name of Server configured in Jenkins>)"
+       withSonarQubeEnv('openmrs') {
+       // requires SonarQube Scanner for Maven 3.2+
+       sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+      sh 'mvn sonar:sonar \
+  -Dsonar.host.url=http://13.126.223.192:9000 \
+  -Dsonar.login=369ab80d58e7c79f99ae98e608f44ab70470d148'
+ 	    }
+      }	
+   }
         stage('junit reports'){
             steps{
                 junit '**/*.xml'
